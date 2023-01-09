@@ -18,8 +18,8 @@ function setup(){
 //max - intersection
 function sdf([x,y]){
 
-    let circle1 = sdf_circle([x,y], [0, -1], 0.4);
-    let circle2 = sdf_circle([x,y], [0, map(millis()%10000, 0, 10000, -1., 1.)], 0.1);
+    let circle1 = sdf_circle([x,y], [0, 0.75], 0.9);
+    let circle2 = sdf_circle([x,y], [0, 0.1], 0.01);
     //let circle2 = sdf_circle([x,y], [0, 0], 0.1);
     let circle3 = sdf_circle([x,y], [0, 0.6], 0.4);
 
@@ -32,25 +32,31 @@ function sdf([x,y]){
     // circle2 = abs(circle2)-0.1;
 
 
-    //y = sdf_rep(y, 0.15);
-    //x = sdf_rep(x, 0.15);
+    //y = sdf_rep(y, 0.2);
+    x = sdf_rep(x, 0.15);
 
-    //x = sdf_mirror(x, 0.3);
+    x = sdf_mirror(x, 0.3);
     //y = sdf_mirror(y, 0.3);
 
     
-    let box1 = sdf_box([x,y], [0.,1], [0.1, 0.1]);
-    let box2 = sdf_box([x,y], [0,-1], [0.1, 0.1]);
+    let box1 = sdf_box([x,y], [0., 1], [0.01, 0.1]);
+    let box2 = sdf_box([x,y], [0, 1], [-1, 0.1]);
 
-    circle2 = sdf_rep(circle2, map(millis()%10000, 0, 10000, -1., 1.));
+    //map(millis()%10000, 0, 10000, -1., 1.)
+
+    circle2 = sdf_rep(circle2, -.3);
+    // circle2 = sdf_rep(0, 0.2);
     
 
 
-    box1 = sdf_rep(box1, map(millis()%6000, 0, 6000, -1., 1.));
-    box2 = sdf_rep(box2, map(millis()%4000, 0, 4000, -1., 1.));
+    box1 = sdf_rep(box1, map(millis()%12000, 0, 12000, -1., 1.));
+    box2 = sdf_rep(box2, map(millis()%2000, 0, 2000, 1., -1.));
+
+    // box1 = sdf_rep(box1, 0.1);
+    // box2 = sdf_rep(box2, 0.02);
 
 
-    return Math.max(circle2, box1, box2); 
+    return Math.max(box2, box1); 
 }
 
 function sdf_circle([x,y], [cx, cy], r){
@@ -88,13 +94,13 @@ function drawCircles([x, y], radius, colour){
 function draw(){
     //background(0);
 
-    for(let i =0; i < 4000; i++){
+    for(let i =0; i < 1000; i++){
         let p = [R(2)-1, R(2)-1]; //random point between -1. and 1.
         let d = sdf(p);
-        let colour = (0, 255, 255);
-        if(d < -.01) colour = (50, 50, 255);
-        if(d > .01) colour = (255, 0, 0);
-        drawCircles(p, 25, colour); //fill scene
+        let colour = 'grey';
+        if(d < -.01) colour = 'black';
+        if(d > .01) colour = 'black';
+        drawCircles(p, 40, colour); //fill scene
     }
 }
 
