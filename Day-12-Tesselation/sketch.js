@@ -24,7 +24,7 @@ function makeBoard(){
         for(let j = 0; j < canY/sizeY; j++){
             let x = sizeX*i+sizeX/2;
             let y = sizeY*j+sizeY/2;
-            sizeX = 32;
+            sizeX = 10;
             sizeY = map(dist(x,y, canX/2, canY/2), 0, 1000, 0, 32);
             tessel.push(new Piece([x, y], 'yellow', [sizeX, sizeY]));
         }
